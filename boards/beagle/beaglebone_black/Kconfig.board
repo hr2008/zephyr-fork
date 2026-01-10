@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_BEAGLEBONE_BLACK
+	bool "BeagleBone Black"
+	depends on SOC_AM3358
+	select SOC_SERIES_AM335X
