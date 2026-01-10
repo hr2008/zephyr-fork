@@ -1,0 +1,10 @@
+# Copyright (c) 2025 Rajeev H
+# SPDX-License-Identifier: Apache-2.0
+
+board:
+  name: beaglebone_black
+  full_name: BeagleBone Black
+  vendor: beagle
+  socs:
+  - name: am335x
+
