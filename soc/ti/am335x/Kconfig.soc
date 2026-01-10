@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: Apache-2.0
+
+config SOC_SERIES_AM335X
+	bool "TI AM335x Series"
+	select ARM
+	select CPU_CORTEX_A8
+	select ARM_ARCH_TIMER if SYS_CLOCK_EXISTS
+	help
+	  Enable support for TI AM335x SoC series
+
+config SOC_AM3358
+	bool "AM3358 SoC"
+	select SOC_SERIES_AM335X
+	help
+	  Enable support for TI AM3358 SoC (BeagleBone Black)
+
+config SOC
+	default "am3358" if SOC_AM3358
+
+config SOC_SERIES
+	default "am335x" if SOC_SERIES_AM335X
+
+config NUM_IRQS
+	default 128 if SOC_SERIES_AM335X
+
+config SYS_CLOCK_HW_CYCLES_PER_SEC
+	default 24000000 if SOC_SERIES_AM335X
+
+config FLASH_SIZE
+	default 0
+
+config FLASH_BASE_ADDRESS
+	default 0x80000000 if SOC_SERIES_AM335X
+
+config SRAM_SIZE
+	default 512 if SOC_SERIES_AM335X
+
+config SRAM_BASE_ADDRESS
+	default 0x80000000 if SOC_SERIES_AM335X

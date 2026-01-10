@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+
+if SOC_SERIES_AM335X
+
+config SOC_SERIES
+	default "am335x"
+
+config SYS_CLOCK_HW_CYCLES_PER_SEC
+	default 24000000
+
+endif # SOC_SERIES_AM335X
