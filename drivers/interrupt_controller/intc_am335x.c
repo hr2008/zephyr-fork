@@ -28,6 +28,7 @@
 
 #define INTC_ACTIVEIRQ_MASK 0x7F
 #define INTC_SPURIOUSIRQ    0x000000FF
+#define INTC_TO_IRQ			0x00
 
 void arch_irq_enable(unsigned int irq)
 {
@@ -61,10 +62,10 @@ void z_arm_irq_priority_set(unsigned int irq, unsigned int prio, uint32_t flags)
 	volatile uint32_t *ilr = (volatile uint32_t *)(INTC_ILR_BASE + (irq * 4));
 	
 	/* Set priority and FIQ/IRQ routing */
-	*ilr = (prio & 0x3F) | ((flags & IRQ_TYPE_EDGE) ? BIT(1) : 0);
+	*ilr = (prio & 0x3F) | ((flags & INTC_TO_IRQ) ? BIT(1) : 0);
 }
 
-void z_arm_irq_init(void)
+void z_soc_irq_init(void)
 {
 	volatile uint32_t *sysconfig = (volatile uint32_t *)INTC_SYSCONFIG;
 	volatile uint32_t *sysstatus = (volatile uint32_t *)INTC_SYSSTATUS;
@@ -88,12 +89,12 @@ void z_arm_irq_init(void)
 		*mir_set = 0xFFFFFFFF;
 	}
 }
-
+/*
 void z_arm_interrupt_init(void)
 {
 	z_arm_irq_init();
 }
-
+*/
 void arch_irq_handle(void)
 {
 	volatile uint32_t *sir_irq = (volatile uint32_t *)INTC_SIR_IRQ;
