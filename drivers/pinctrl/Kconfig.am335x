@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+
+config PINCTRL_AM335X
+	bool "TI AM335x pinctrl driver"
+	default y
+	depends on DT_HAS_TI_AM335X_PINCTRL_ENABLED
+	help
+	  Enable pin control driver for TI AM335x SoC series.
+	  This driver provides:
+	  - Pin multiplexing (8 modes per pin)
+	  - Pull-up/pull-down resistor control
+	  - Input enable control
+	  - Slew rate control
+	  
+	  The driver allows configuration of the AM335x control
+	  module registers to properly route signals to external
+	  pins and configure electrical properties.

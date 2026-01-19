@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: Apache-2.0
+
+description: TI AM335x Pin Controller
+
+compatible: "ti,am335x-pinctrl"
+
+include: base.yaml
+
+child-binding:
+  description: |
+    Pin configuration for AM335x.
+    
+    Each pin is configured with an offset and configuration bits.
+    
+  properties:
+    pinmux:
+      required: true
+      type: array
+      description: |
+        Pin mux configuration array. Each entry contains:
+        - Pin offset (bits 15:0)
+        - Mux mode (bits 18:16)
+        - Pull disable (bit 19)
+        - Pull type (bit 20): 0=pulldown, 1=pullup
+        - Input enable (bit 21)
+        - Slew control (bit 22)
