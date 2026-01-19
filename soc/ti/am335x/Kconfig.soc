@@ -4,18 +4,23 @@ config SOC_SERIES_AM335X
 	bool "TI AM335x Series"
 	select ARM
 	select CPU_CORTEX_A8
-	select ARM_ARCH_TIMER if SYS_CLOCK_EXISTS
+#	select ARM_ARCH_TIMER if SYS_CLOCK_EXISTS
 	help
 	  Enable support for TI AM335x SoC series
 
-config SOC_AM3358
+config SOC_AM335X
 	bool "AM3358 SoC"
 	select SOC_SERIES_AM335X
 	help
 	  Enable support for TI AM3358 SoC (BeagleBone Black)
 
 config SOC
-	default "am3358" if SOC_AM3358
+	default "am335x" if SOC_AM335X
+
+config HAS_TI_AM335X
+	bool
+	help
+	  Hidden option indicating TI AM335x hardware is present.
 
 config SOC_SERIES
 	default "am335x" if SOC_SERIES_AM335X

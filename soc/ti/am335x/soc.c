@@ -3,7 +3,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/init.h>
 #include <zephyr/arch/cpu.h>
-#include <zephyr/arch/arm/aarch32/cortex_a_r/cmsis.h>
 #include "soc.h"
 
 #define INTC_SYSCONFIG          (AM335X_INTC_BASE + 0x10)
