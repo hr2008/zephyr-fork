@@ -17,4 +17,23 @@ config SERIAL
 config GPIO
 	default y
 
+config GPIO_AM335X
+	bool
+	default y if GPIO
+
+config UART_AM335X
+	bool
+	default y if SERIAL
+
+# Pin control
+config PINCTRL
+	bool
+	default y
+
+config PINCTRL_AM335X
+	bool
+	default y if PINCTRL
+
+
+
 endif # BOARD_BEAGLEBONE_BLACK
