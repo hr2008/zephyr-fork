@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: Apache-2.0
+# File #15: dts/bindings/gpio/ti,am335x-gpio.yaml
+
+description: TI AM335x GPIO controller
+
+compatible: "ti,am335x-gpio"
+
+include: [gpio-controller.yaml, base.yaml, pinctrl-device.yaml]
+
+properties:
+  reg:
+    required: true
+
+  interrupts:
+    required: true
+
+  ngpios:
+    type: int
+    required: true
+    description: Number of GPIOs (typically 32)
+
+gpio-cells:
+  - pin
+  - flags

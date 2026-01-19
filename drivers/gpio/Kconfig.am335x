@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+
+config GPIO_AM335X
+	bool "AM335x GPIO driver"
+	default y
+	depends on DT_HAS_AM335x_GPIO_ENABLED
+	select MFD
+	help
+	  Enable the AM335X GPIO driver.
