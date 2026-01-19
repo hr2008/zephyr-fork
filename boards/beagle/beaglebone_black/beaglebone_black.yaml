@@ -4,6 +4,10 @@ identifier: beaglebone_black
 name: BeagleBone Black
 type: mcu
 arch: arm
+vendor: beagle
+socs:
+  - name: am335x
+    vendor: ti
 toolchain:
   - zephyr
   - gnuarmemb

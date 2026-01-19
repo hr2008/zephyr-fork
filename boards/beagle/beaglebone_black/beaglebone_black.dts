@@ -2,123 +2,25 @@
 
 /dts-v1/;
 
-#include <mem.h>
-#include <arm/armv7-a.dtsi>
-#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <ti/am335x.dtsi>
 
 / {
 	model = "BeagleBone Black";
-	compatible = "beagle,beaglebone-black";
-
-	#address-cells = <1>;
-	#size-cells = <1>;
+	compatible = "ti,am335x-bone-black", "ti,am335x";
 
 	chosen {
 		zephyr,console = &uart0;
 		zephyr,shell-uart = &uart0;
-		zephyr,sram = &ddr0;
-		zephyr,flash = &ddr0;
+		zephyr,ram = &memory0;
+		zephyr,code-partition = &memory0;
 	};
 
-	cpus {
-		#address-cells = <1>;
-		#size-cells = <0>;
 
-		cpu@0 {
-			device_type = "cpu";
-			compatible = "arm,cortex-a8";
-			reg = <0>;
-		};
-	};
+    memory0: memory@80000000 {
+        device_type = "memory";
+        reg = <0x80000000 0x20000000>; /* 512 MB */
+    };
 
-	ddr0: memory@80000000 {
-		compatible = "mmio-sram";
-		reg = <0x80000000 DT_SIZE_M(512)>;
-	};
-
-	soc {
-		#address-cells = <1>;
-		#size-cells = <1>;
-		compatible = "simple-bus";
-		ranges;
-
-		intc: interrupt-controller@48200000 {
-			compatible = "ti,am335x-intc";
-			reg = <0x48200000 0x1000>;
-			interrupt-controller;
-			#interrupt-cells = <1>;
-		};
-
-		uart0: uart@44e09000 {
-			compatible = "ti,am335x-uart";
-			reg = <0x44e09000 0x2000>;
-			interrupts = <72>;
-			interrupt-parent = <&intc>;
-			status = "okay";
-			current-speed = <115200>;
-		};
-
-		uart1: uart@48022000 {
-			compatible = "ti,am335x-uart";
-			reg = <0x48022000 0x2000>;
-			interrupts = <73>;
-			interrupt-parent = <&intc>;
-			status = "disabled";
-			current-speed = <115200>;
-		};
-
-		gpio0: gpio@44e07000 {
-			compatible = "ti,am335x-gpio";
-			reg = <0x44e07000 0x1000>;
-			interrupts = <96>;
-			interrupt-parent = <&intc>;
-			gpio-controller;
-			#gpio-cells = <2>;
-			ngpios = <32>;
-			status = "okay";
-		};
-
-		gpio1: gpio@4804c000 {
-			compatible = "ti,am335x-gpio";
-			reg = <0x4804c000 0x1000>;
-			interrupts = <98>;
-			interrupt-parent = <&intc>;
-			gpio-controller;
-			#gpio-cells = <2>;
-			ngpios = <32>;
-			status = "okay";
-		};
-
-		gpio2: gpio@481ac000 {
-			compatible = "ti,am335x-gpio";
-			reg = <0x481ac000 0x1000>;
-			interrupts = <32>;
-			interrupt-parent = <&intc>;
-			gpio-controller;
-			#gpio-cells = <2>;
-			ngpios = <32>;
-			status = "disabled";
-		};
-
-		gpio3: gpio@481ae000 {
-			compatible = "ti,am335x-gpio";
-			reg = <0x481ae000 0x1000>;
-			interrupts = <62>;
-			interrupt-parent = <&intc>;
-			gpio-controller;
-			#gpio-cells = <2>;
-			ngpios = <32>;
-			status = "disabled";
-		};
-
-		timer2: timer@48040000 {
-			compatible = "ti,am335x-timer";
-			reg = <0x48040000 0x400>;
-			interrupts = <68>;
-			interrupt-parent = <&intc>;
-			status = "okay";
-		};
-	};
 
 	leds {
 		compatible = "gpio-leds";
@@ -150,4 +52,47 @@
 		led2 = &led2;
 		led3 = &led3;
 	};
+};
+
+/* Pinctrl configuration */
+&pinctrl {
+	uart0_pins: uart0_pins {
+		pinmux = <
+			AM335X_PINMUX(AM335X_PIN_UART0_RXD, 0, AM335X_PIN_INPUT_PULLUP)
+			AM335X_PINMUX(AM335X_PIN_UART0_TXD, 0, AM335X_PIN_OUTPUT)
+		>;
+	};
+
+	gpio_led_pins: gpio_led_pins {
+		pinmux = <
+			AM335X_PINMUX(AM335X_PIN_GPMC_A5, 7, AM335X_PIN_OUTPUT)
+			AM335X_PINMUX(AM335X_PIN_GPMC_A6, 7, AM335X_PIN_OUTPUT)
+			AM335X_PINMUX(AM335X_PIN_GPMC_A7, 7, AM335X_PIN_OUTPUT)
+			AM335X_PINMUX(AM335X_PIN_GPMC_A8, 7, AM335X_PIN_OUTPUT)
+		>;
+	};
+};
+
+/* Enable and configure UART0 for console */
+&uart0 {
+	status = "okay";
+	pinctrl-0 = <&uart0_pins>;
+	pinctrl-names = "default";
+};
+
+/* Enable GPIO0 */
+&gpio0 {
+	status = "okay";
+};
+
+/* Enable GPIO1 for LEDs */
+&gpio1 {
+	status = "okay";
+	pinctrl-0 = <&gpio_led_pins>;
+	pinctrl-names = "default";
+};
+
+/* Enable Timer2 for system clock */
+&timer2 {
+	status = "okay";
 };
