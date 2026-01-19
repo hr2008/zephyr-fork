@@ -1,0 +1,6 @@
+config INTC_AM335X
+	bool "TI AM335x Interrupt Controller"
+	default y
+	depends on ARM && CPU_CORTEX_A8
+	help
+	  Enable interrupt controller driver for TI AM335x SoCs.
