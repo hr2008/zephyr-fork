@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+
+config AM335X_TIMER
+	bool "TI AM335x DMTimer driver"
+	default y
+	depends on DT_HAS_TI_AM335X_TIMER_ENABLED
+	select TICKLESS_CAPABLE
+	help
+	  Enable DMTimer driver for TI AM335x SoC series.
+	  This driver provides:
+	  - System clock source
+	  - Tickless kernel support
+	  - 32-bit counter
+	  - Match and overflow interrupts
+	  - Up to 8 timer modules (DMTIMER0-7)

@@ -4,6 +4,7 @@ zephyr_library()
 zephyr_library_sources(sys_clock_init.c)
 
 # zephyr-keep-sorted-start
+zephyr_library_sources_ifdef(CONFIG_AM335X_TIMER timer_am335x.c)
 zephyr_library_sources_ifdef(CONFIG_AMBIQ_STIMER_TIMER ambiq_stimer.c)
 zephyr_library_sources_ifdef(CONFIG_APIC_TIMER apic_timer.c)
 zephyr_library_sources_ifdef(CONFIG_APIC_TIMER_TSC apic_tsc.c)
