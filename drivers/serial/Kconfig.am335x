@@ -1,0 +1,8 @@
+config UART_AM335X
+	bool "TI AM335x UART driver"
+	default y
+	depends on DT_HAS_TI_AM335X_UART_ENABLED
+	depends on SERIAL
+	select SERIAL_HAS_DRIVER
+	help
+	  Enable polling-only UART driver for TI AM335x SoC

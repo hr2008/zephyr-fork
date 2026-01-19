@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: Apache-2.0
+
+description: TI AM335x UART controller
+
+compatible: "ti,am335x-uart"
+
+include: [uart-controller.yaml, base.yaml, pinctrl-device.yaml]
+
+properties:
+  reg:
+    required: true
+
+  interrupts:
+    required: true
+
+  current-speed:
+    type: int
+    required: true
+    description: Initial baud rate setting for UART
