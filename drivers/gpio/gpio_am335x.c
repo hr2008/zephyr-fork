@@ -15,15 +15,15 @@
 #include <zephyr/sys/util.h>
 
 /* --- AM335x GPIO register offsets (simplified) --- */
-#define GPIO_OE            0x134
-#define GPIO_DATAIN        0x138
-#define GPIO_DATAOUT       0x13C
-#define GPIO_SETDATAOUT    0x194
-#define GPIO_CLEARDATAOUT  0x190
-#define GPIO_IRQSTATUS_0   0x02C
-#define GPIO_IRQSTATUS_1   0x030
-#define GPIO_IRQENABLE_0   0x034
-#define GPIO_IRQENABLE_1   0x038
+#define GPIO_OE           0x134
+#define GPIO_DATAIN       0x138
+#define GPIO_DATAOUT      0x13C
+#define GPIO_SETDATAOUT   0x194
+#define GPIO_CLEARDATAOUT 0x190
+#define GPIO_IRQSTATUS_0  0x02C
+#define GPIO_IRQSTATUS_1  0x030
+#define GPIO_IRQENABLE_0  0x034
+#define GPIO_IRQENABLE_1  0x038
 
 /* --- Driver data --- */
 struct gpio_am335x_data {
@@ -50,9 +50,7 @@ static inline void reg_write(uintptr_t base, uint32_t offset, uint32_t val)
 
 /* --- GPIO API implementations --- */
 
-static int gpio_am335x_configure(const struct device *dev,
-				 gpio_pin_t pin,
-				 gpio_flags_t flags)
+static int gpio_am335x_configure(const struct device *dev, gpio_pin_t pin, gpio_flags_t flags)
 {
 	const struct gpio_am335x_config *cfg = dev->config;
 	uint32_t oe;
@@ -73,8 +71,7 @@ static int gpio_am335x_configure(const struct device *dev,
 	return 0;
 }
 
-static int gpio_am335x_port_get_raw(const struct device *dev,
-				    gpio_port_value_t *value)
+static int gpio_am335x_port_get_raw(const struct device *dev, gpio_port_value_t *value)
 {
 	const struct gpio_am335x_config *cfg = dev->config;
 
@@ -82,8 +79,7 @@ static int gpio_am335x_port_get_raw(const struct device *dev,
 	return 0;
 }
 
-static int gpio_am335x_port_set_masked_raw(const struct device *dev,
-					   gpio_port_pins_t mask,
+static int gpio_am335x_port_set_masked_raw(const struct device *dev, gpio_port_pins_t mask,
 					   gpio_port_value_t value)
 {
 	const struct gpio_am335x_config *cfg = dev->config;
@@ -93,8 +89,7 @@ static int gpio_am335x_port_set_masked_raw(const struct device *dev,
 	return 0;
 }
 
-static int gpio_am335x_port_set_bits_raw(const struct device *dev,
-					gpio_port_pins_t pins)
+static int gpio_am335x_port_set_bits_raw(const struct device *dev, gpio_port_pins_t pins)
 {
 	const struct gpio_am335x_config *cfg = dev->config;
 
@@ -102,8 +97,7 @@ static int gpio_am335x_port_set_bits_raw(const struct device *dev,
 	return 0;
 }
 
-static int gpio_am335x_port_clear_bits_raw(const struct device *dev,
-					  gpio_port_pins_t pins)
+static int gpio_am335x_port_clear_bits_raw(const struct device *dev, gpio_port_pins_t pins)
 {
 	const struct gpio_am335x_config *cfg = dev->config;
 
@@ -111,8 +105,7 @@ static int gpio_am335x_port_clear_bits_raw(const struct device *dev,
 	return 0;
 }
 
-static int gpio_am335x_port_toggle_bits(const struct device *dev,
-				       gpio_port_pins_t pins)
+static int gpio_am335x_port_toggle_bits(const struct device *dev, gpio_port_pins_t pins)
 {
 	gpio_port_value_t val;
 
@@ -120,8 +113,7 @@ static int gpio_am335x_port_toggle_bits(const struct device *dev,
 	return gpio_am335x_port_set_masked_raw(dev, pins, ~val);
 }
 
-static int gpio_am335x_manage_callback(const struct device *dev,
-				       struct gpio_callback *callback,
+static int gpio_am335x_manage_callback(const struct device *dev, struct gpio_callback *callback,
 				       bool set)
 {
 	struct gpio_am335x_data *data = dev->data;
@@ -171,31 +163,23 @@ static int gpio_am335x_init(const struct device *dev)
 }
 
 /* --- DT instantiation --- */
-#define GPIO_AM335X_INIT(n)                                              \
-	static void gpio_am335x_irq_config_##n(void)                      \
-	{                                                                  \
-		IRQ_CONNECT(DT_INST_IRQN(n),                               \
-			    DT_INST_IRQ(n, priority),                     \
-			    gpio_am335x_isr,                              \
-			    DEVICE_DT_INST_GET(n),                        \
-			    0);                                           \
-		irq_enable(DT_INST_IRQN(n));                              \
-	}                                                                  \
-                                                                           \
-	static const struct gpio_am335x_config gpio_am335x_cfg_##n = {     \
-		.base = DT_INST_REG_ADDR(n),                               \
-		.irq_config_func = gpio_am335x_irq_config_##n,             \
-	};                                                                  \
-                                                                           \
-	static struct gpio_am335x_data gpio_am335x_data_##n;               \
-                                                                           \
-	DEVICE_DT_INST_DEFINE(n,                                           \
-			      gpio_am335x_init,                            \
-			      NULL,                                      \
-			      &gpio_am335x_data_##n,                     \
-			      &gpio_am335x_cfg_##n,                      \
-			      POST_KERNEL,                               \
-			      CONFIG_GPIO_INIT_PRIORITY,                \
+#define GPIO_AM335X_INIT(n)                                                                        \
+	static void gpio_am335x_irq_config_##n(void)                                               \
+	{                                                                                          \
+		IRQ_CONNECT(DT_INST_IRQN(n), DT_INST_IRQ(n, priority), gpio_am335x_isr,            \
+			    DEVICE_DT_INST_GET(n), 0);                                             \
+		irq_enable(DT_INST_IRQN(n));                                                       \
+	}                                                                                          \
+                                                                                                   \
+	static const struct gpio_am335x_config gpio_am335x_cfg_##n = {                             \
+		.base = DT_INST_REG_ADDR(n),                                                       \
+		.irq_config_func = gpio_am335x_irq_config_##n,                                     \
+	};                                                                                         \
+                                                                                                   \
+	static struct gpio_am335x_data gpio_am335x_data_##n;                                       \
+                                                                                                   \
+	DEVICE_DT_INST_DEFINE(n, gpio_am335x_init, NULL, &gpio_am335x_data_##n,                    \
+			      &gpio_am335x_cfg_##n, POST_KERNEL, CONFIG_GPIO_INIT_PRIORITY,        \
 			      &gpio_am335x_driver_api);
 
 DT_INST_FOREACH_STATUS_OKAY(GPIO_AM335X_INIT)
