@@ -9,9 +9,9 @@ include: base.yaml
 child-binding:
   description: |
     Pin configuration for AM335x.
-    
+
     Each pin is configured with an offset and configuration bits.
-    
+
   properties:
     pinmux:
       required: true

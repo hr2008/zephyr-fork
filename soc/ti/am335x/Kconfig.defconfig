@@ -14,5 +14,5 @@ config SOC_FAMILY
 config SOC_FAMILY_TI
 	bool
 	default y
-	
+
 endif # SOC_SERIES_AM335X

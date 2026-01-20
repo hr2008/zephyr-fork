@@ -39,25 +39,25 @@ static void pinctrl_configure_pin(uint32_t pin_config)
 	uint32_t pull_type = (pin_config >> 20) & 0x1;
 	uint32_t input_en = (pin_config >> 21) & 0x1;
 	uint32_t slew = (pin_config >> 22) & 0x1;
-	
+
 	uint32_t conf_val = 0;
 	volatile uint32_t *conf_reg;
 
 	/* Build configuration value */
 	conf_val |= (mode & CONF_MMODE_MASK);
-	
+
 	if (pull_disable) {
 		conf_val |= CONF_PUDEN;
 	}
-	
+
 	if (pull_type) {
 		conf_val |= CONF_PUTYPESEL;  /* Pull-up */
 	}
-	
+
 	if (input_en) {
 		conf_val |= CONF_RXACTIVE;
 	}
-	
+
 	if (slew) {
 		conf_val |= CONF_SLEWCTRL;
 	}

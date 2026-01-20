@@ -35,7 +35,7 @@ void arch_irq_enable(unsigned int irq)
 	uint32_t bank = irq / 32;
 	uint32_t bit = irq % 32;
 	volatile uint32_t *mir_clear = (volatile uint32_t *)(INTC_MIR_CLEAR_BASE + (bank * 0x20));
-	
+
 	*mir_clear = BIT(bit);
 }
 
@@ -44,7 +44,7 @@ void arch_irq_disable(unsigned int irq)
 	uint32_t bank = irq / 32;
 	uint32_t bit = irq % 32;
 	volatile uint32_t *mir_set = (volatile uint32_t *)(INTC_MIR_SET_BASE + (bank * 0x20));
-	
+
 	*mir_set = BIT(bit);
 }
 
@@ -53,14 +53,14 @@ int arch_irq_is_enabled(unsigned int irq)
 	uint32_t bank = irq / 32;
 	uint32_t bit = irq % 32;
 	volatile uint32_t *mir = (volatile uint32_t *)(INTC_MIR_BASE + (bank * 0x20));
-	
+
 	return (*mir & BIT(bit)) == 0;
 }
 
 void z_arm_irq_priority_set(unsigned int irq, unsigned int prio, uint32_t flags)
 {
 	volatile uint32_t *ilr = (volatile uint32_t *)(INTC_ILR_BASE + (irq * 4));
-	
+
 	/* Set priority and FIQ/IRQ routing */
 	*ilr = (prio & 0x3F) | ((flags & INTC_TO_IRQ) ? BIT(1) : 0);
 }
@@ -74,7 +74,7 @@ void z_soc_irq_init(void)
 
 	/* Soft reset INTC */
 	*sysconfig = BIT(1);
-	
+
 	/* Wait for reset to complete */
 	while ((*sysstatus & BIT(0)) == 0) {
 		/* Wait */
@@ -89,12 +89,7 @@ void z_soc_irq_init(void)
 		*mir_set = 0xFFFFFFFF;
 	}
 }
-/*
-void z_arm_interrupt_init(void)
-{
-	z_arm_irq_init();
-}
-*/
+
 void arch_irq_handle(void)
 {
 	volatile uint32_t *sir_irq = (volatile uint32_t *)INTC_SIR_IRQ;
@@ -107,7 +102,7 @@ void arch_irq_handle(void)
 
 	if (irq != INTC_SPURIOUSIRQ) {
 		struct _isr_table_entry *entry = &_sw_isr_table[irq];
-		
+
 		entry->isr(entry->arg);
 
 		/* Signal end of interrupt */
