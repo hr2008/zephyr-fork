@@ -60,7 +60,6 @@
 
 /*
  * Pin offsets for commonly used pins on AM335x
- * 
  * These offsets are relative to the Control Module conf base at 0x44E10800
  * Complete pinmux tables are in the AM335x Technical Reference Manual
  */

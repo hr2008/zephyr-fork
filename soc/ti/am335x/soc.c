@@ -22,7 +22,7 @@ static void intc_init(void)
 
 	/* Soft reset INTC */
 	*sysconfig = INTC_SYSCONFIG_SOFTRESET;
-	
+
 	/* Wait for reset to complete */
 	while ((*sysstatus & INTC_SYSSTATUS_RESETDONE) == 0) {
 		/* Wait */

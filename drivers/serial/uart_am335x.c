@@ -74,12 +74,14 @@ struct uart_am335x_data {
 static inline uint32_t uart_read(const struct device *dev, uint32_t reg)
 {
 	const struct uart_am335x_config *cfg = dev->config;
+
 	return sys_read32(cfg->base + reg);
 }
 
 static inline void uart_write(const struct device *dev, uint32_t reg, uint32_t val)
 {
 	const struct uart_am335x_config *cfg = dev->config;
+
 	sys_write32(val, cfg->base + reg);
 }
 
@@ -87,10 +89,10 @@ static void uart_am335x_enable_clock(const struct device *dev)
 {
 	const struct uart_am335x_config *cfg = dev->config;
 	volatile uint32_t *clk_reg = (volatile uint32_t *)cfg->clock_reg;
-	
+
 	/* Enable module clock */
 	*clk_reg = 0x2;
-	
+
 	/* Wait for module to be enabled */
 	while ((*clk_reg & (0x3 << 16)) != 0) {
 		/* Wait */
@@ -199,12 +201,14 @@ static int uart_am335x_fifo_read(const struct device *dev,
 static void uart_am335x_irq_tx_enable(const struct device *dev)
 {
 	uint32_t ier = uart_read(dev, UART_IER);
+
 	uart_write(dev, UART_IER, ier | UART_IER_THR);
 }
 
 static void uart_am335x_irq_tx_disable(const struct device *dev)
 {
 	uint32_t ier = uart_read(dev, UART_IER);
+
 	uart_write(dev, UART_IER, ier & ~UART_IER_THR);
 }
 
@@ -216,12 +220,14 @@ static int uart_am335x_irq_tx_ready(const struct device *dev)
 static void uart_am335x_irq_rx_enable(const struct device *dev)
 {
 	uint32_t ier = uart_read(dev, UART_IER);
+
 	uart_write(dev, UART_IER, ier | UART_IER_RHR);
 }
 
 static void uart_am335x_irq_rx_disable(const struct device *dev)
 {
 	uint32_t ier = uart_read(dev, UART_IER);
+
 	uart_write(dev, UART_IER, ier & ~UART_IER_RHR);
 }
 
@@ -233,6 +239,7 @@ static int uart_am335x_irq_rx_ready(const struct device *dev)
 static int uart_am335x_irq_is_pending(const struct device *dev)
 {
 	uint32_t iir = uart_read(dev, UART_IIR);
+
 	return (iir & 0x01) == 0;
 }
 

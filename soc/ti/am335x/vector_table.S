@@ -31,27 +31,27 @@ SECTION_FUNC(TEXT, z_arm_reset)
     cpsid if
 
     /* Set up stack pointers for different modes */
-    
+
     /* FIQ mode stack */
     cps #0x11    /* FIQ mode */
     ldr sp, =z_fiq_stack
-    
+
     /* IRQ mode stack */
     cps #0x12    /* IRQ mode */
     ldr sp, =z_irq_stack
-    
+
     /* Abort mode stack */
     cps #0x17    /* Abort mode */
     ldr sp, =z_abt_stack
-    
+
     /* Undefined mode stack */
     cps #0x1B    /* Undefined mode */
     ldr sp, =z_und_stack
-    
+
     /* System mode stack */
     cps #0x1F    /* System mode */
     ldr sp, =z_sys_stack
-    
+
     /* SVC mode stack (main stack) */
     cps #0x13    /* SVC mode */
     ldr sp, =z_main_stack

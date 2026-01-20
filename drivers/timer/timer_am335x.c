@@ -67,10 +67,10 @@ static inline void timer_write(uint32_t reg, uint32_t val)
 static void timer_am335x_enable_clock(void)
 {
 	volatile uint32_t *clk_reg = (volatile uint32_t *)CM_PER_TIMER2_CLKCTRL;
-	
+
 	/* Enable module clock */
 	*clk_reg = 0x2;
-	
+
 	/* Wait for module to be enabled */
 	while ((*clk_reg & (0x3 << 16)) != 0) {
 		/* Wait */

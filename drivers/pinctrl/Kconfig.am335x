@@ -12,7 +12,7 @@ config PINCTRL_AM335X
 	  - Pull-up/pull-down resistor control
 	  - Input enable control
 	  - Slew rate control
-	  
+
 	  The driver allows configuration of the AM335x control
 	  module registers to properly route signals to external
 	  pins and configure electrical properties.
