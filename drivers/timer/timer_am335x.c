@@ -10,37 +10,37 @@
 #include <zephyr/irq.h>
 
 /* Timer Register Offsets */
-#define TIMER_TIDR         0x00
-#define TIMER_TIOCP_CFG    0x10
-#define TIMER_TISTAT       0x14
-#define TIMER_TISR         0x18
-#define TIMER_TIER         0x1C
-#define TIMER_TWER         0x20
-#define TIMER_TCLR         0x24
-#define TIMER_TCRR         0x28
-#define TIMER_TLDR         0x2C
-#define TIMER_TTGR         0x30
-#define TIMER_TWPS         0x34
-#define TIMER_TMAR         0x38
-#define TIMER_TCAR1        0x3C
-#define TIMER_TSICR        0x40
-#define TIMER_TCAR2        0x44
+#define TIMER_TIDR      0x00
+#define TIMER_TIOCP_CFG 0x10
+#define TIMER_TISTAT    0x14
+#define TIMER_TISR      0x18
+#define TIMER_TIER      0x1C
+#define TIMER_TWER      0x20
+#define TIMER_TCLR      0x24
+#define TIMER_TCRR      0x28
+#define TIMER_TLDR      0x2C
+#define TIMER_TTGR      0x30
+#define TIMER_TWPS      0x34
+#define TIMER_TMAR      0x38
+#define TIMER_TCAR1     0x3C
+#define TIMER_TSICR     0x40
+#define TIMER_TCAR2     0x44
 
 /* TCLR Register Bits */
-#define TIMER_TCLR_ST      BIT(0)   /* Start/Stop timer */
-#define TIMER_TCLR_AR      BIT(1)   /* Auto-reload */
-#define TIMER_TCLR_CE      BIT(6)   /* Compare enable */
-#define TIMER_TCLR_PRE     BIT(5)   /* Prescaler enable */
+#define TIMER_TCLR_ST  BIT(0) /* Start/Stop timer */
+#define TIMER_TCLR_AR  BIT(1) /* Auto-reload */
+#define TIMER_TCLR_CE  BIT(6) /* Compare enable */
+#define TIMER_TCLR_PRE BIT(5) /* Prescaler enable */
 
 /* TIER Register Bits */
-#define TIMER_TIER_MAT_EN  BIT(0)   /* Match interrupt enable */
-#define TIMER_TIER_OVF_EN  BIT(1)   /* Overflow interrupt enable */
+#define TIMER_TIER_MAT_EN BIT(0) /* Match interrupt enable */
+#define TIMER_TIER_OVF_EN BIT(1) /* Overflow interrupt enable */
 
 /* TISR Register Bits */
-#define TIMER_TISR_MAT     BIT(0)   /* Match interrupt status */
-#define TIMER_TISR_OVF     BIT(1)   /* Overflow interrupt status */
+#define TIMER_TISR_MAT BIT(0) /* Match interrupt status */
+#define TIMER_TISR_OVF BIT(1) /* Overflow interrupt status */
 
-#define TIMER_CLOCK_FREQ    24000000  /* 24 MHz */
+#define TIMER_CLOCK_FREQ 24000000 /* 24 MHz */
 
 #define CYC_PER_TICK (TIMER_CLOCK_FREQ / CONFIG_SYS_CLOCK_TICKS_PER_SEC)
 #define MAX_CYCLES   0xFFFFFFFF
@@ -161,11 +161,8 @@ static int sys_clock_driver_init(void)
 	timer_write(TIMER_TISR, TIMER_TISR_MAT | TIMER_TISR_OVF);
 
 	/* Configure and connect interrupt */
-	IRQ_CONNECT(DT_IRQN(DT_NODELABEL(timer2)),
-		    DT_IRQ(DT_NODELABEL(timer2), priority),
-		    timer_am335x_isr,
-		    NULL,
-		    0);
+	IRQ_CONNECT(DT_IRQN(DT_NODELABEL(timer2)), DT_IRQ(DT_NODELABEL(timer2), priority),
+		    timer_am335x_isr, NULL, 0);
 
 	irq_enable(DT_IRQN(DT_NODELABEL(timer2)));
 

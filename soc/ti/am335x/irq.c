@@ -11,37 +11,37 @@
 #include <zephyr/sw_isr_table.h>
 
 /* INTC Register Offsets */
-#define INTC_BASE           0x48200000
+#define INTC_BASE 0x48200000
 
-#define INTC_REVISION       0x00
-#define INTC_SYSCONFIG      0x10
-#define INTC_SYSSTATUS      0x14
-#define INTC_SIR_IRQ        0x40
-#define INTC_SIR_FIQ        0x44
-#define INTC_CONTROL        0x48
-#define INTC_PROTECTION     0x4C
-#define INTC_IDLE           0x50
-#define INTC_IRQ_PRIORITY   0x60
-#define INTC_FIQ_PRIORITY   0x64
-#define INTC_THRESHOLD      0x68
+#define INTC_REVISION     0x00
+#define INTC_SYSCONFIG    0x10
+#define INTC_SYSSTATUS    0x14
+#define INTC_SIR_IRQ      0x40
+#define INTC_SIR_FIQ      0x44
+#define INTC_CONTROL      0x48
+#define INTC_PROTECTION   0x4C
+#define INTC_IDLE         0x50
+#define INTC_IRQ_PRIORITY 0x60
+#define INTC_FIQ_PRIORITY 0x64
+#define INTC_THRESHOLD    0x68
 
 /* Interrupt Mask/Enable registers (128 interrupts / 32 per register) */
-#define INTC_ITR(n)         (0x80 + ((n) * 0x20))   /* IRQ status */
-#define INTC_MIR(n)         (0x84 + ((n) * 0x20))   /* Mask */
-#define INTC_MIR_CLEAR(n)   (0x88 + ((n) * 0x20))   /* Clear mask (enable) */
-#define INTC_MIR_SET(n)     (0x8C + ((n) * 0x20))   /* Set mask (disable) */
-#define INTC_ISR_SET(n)     (0x90 + ((n) * 0x20))   /* Set interrupt */
-#define INTC_ISR_CLEAR(n)   (0x94 + ((n) * 0x20))   /* Clear interrupt */
-#define INTC_PENDING_IRQ(n) (0x98 + ((n) * 0x20))   /* Pending IRQ */
-#define INTC_PENDING_FIQ(n) (0x9C + ((n) * 0x20))   /* Pending FIQ */
+#define INTC_ITR(n)         (0x80 + ((n) * 0x20)) /* IRQ status */
+#define INTC_MIR(n)         (0x84 + ((n) * 0x20)) /* Mask */
+#define INTC_MIR_CLEAR(n)   (0x88 + ((n) * 0x20)) /* Clear mask (enable) */
+#define INTC_MIR_SET(n)     (0x8C + ((n) * 0x20)) /* Set mask (disable) */
+#define INTC_ISR_SET(n)     (0x90 + ((n) * 0x20)) /* Set interrupt */
+#define INTC_ISR_CLEAR(n)   (0x94 + ((n) * 0x20)) /* Clear interrupt */
+#define INTC_PENDING_IRQ(n) (0x98 + ((n) * 0x20)) /* Pending IRQ */
+#define INTC_PENDING_FIQ(n) (0x9C + ((n) * 0x20)) /* Pending FIQ */
 
 /* Interrupt Line registers (128 interrupts, 4 bits per interrupt) */
-#define INTC_ILR(n)         (0x100 + ((n) * 0x04))
+#define INTC_ILR(n) (0x100 + ((n) * 0x04))
 
 /* ILR register bits */
-#define ILR_PRIORITY_SHIFT  2
-#define ILR_PRIORITY_MASK   (0x3F << ILR_PRIORITY_SHIFT)
-#define ILR_FIQ_nIRQ        BIT(0)
+#define ILR_PRIORITY_SHIFT 2
+#define ILR_PRIORITY_MASK  (0x3F << ILR_PRIORITY_SHIFT)
+#define ILR_FIQ_nIRQ       BIT(0)
 
 void z_soc_irq_init(void)
 {
