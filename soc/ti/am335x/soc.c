@@ -1,4 +1,7 @@
-/* SPDX-License-Identifier: Apache-2.0 */
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Rajeev H
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 #include <zephyr/kernel.h>
 #include <zephyr/init.h>
