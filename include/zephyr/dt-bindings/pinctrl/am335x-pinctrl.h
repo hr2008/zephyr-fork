@@ -1,5 +1,7 @@
-/* SPDX-License-Identifier: Apache-2.0 */
-/* File #26: include/zephyr/dt-bindings/pinctrl/am335x-pinctrl.h */
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Rajeev H
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 #ifndef ZEPHYR_INCLUDE_DT_BINDINGS_PINCTRL_AM335X_H_
 #define ZEPHYR_INCLUDE_DT_BINDINGS_PINCTRL_AM335X_H_

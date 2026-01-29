@@ -1,4 +1,7 @@
-/* SPDX-License-Identifier: Apache-2.0 */
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Rajeev H
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 #define DT_DRV_COMPAT ti_am335x_timer
 

@@ -1,4 +1,7 @@
-/* SPDX-License-Identifier: Apache-2.0 */
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Rajeev H
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 #ifndef ZEPHYR_SOC_TI_AM335X_PINCTRL_SOC_H_
 #define ZEPHYR_SOC_TI_AM335X_PINCTRL_SOC_H_

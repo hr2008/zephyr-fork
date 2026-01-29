@@ -1,3 +1,4 @@
+# Copyright (c) 2025 Rajeev H
 # SPDX-License-Identifier: Apache-2.0
 
 if BOARD_BEAGLEBONE_BLACK
